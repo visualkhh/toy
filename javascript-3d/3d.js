@@ -1,3 +1,9 @@
+var sin = function(v) {
+    return Math.sin(v);
+}
+var cos = function(v) {
+    return Math.cos(v);
+}
 window.addEventListener('DOMContentLoaded', function () {
 
     var canvas = document.getElementById("canvas");
@@ -61,16 +67,18 @@ window.addEventListener('DOMContentLoaded', function () {
         var cursor = {
             x: e.offsetX || e.originalEvent.layerX,
             y: e.offsetY || e.originalEvent.layerY,
-            px: pmouse&&pmouse.x?pmouse.x:undefined,
-            py: pmouse&&pmouse.y?pmouse.y:undefined
+            px: pmouse&&pmouse.x?pmouse.x:0,
+            py: pmouse&&pmouse.y?pmouse.y:0
         };
-        // if (mouseDragged) {
-        //     mouseDragged(cursor);
-        // }
+        // console.log(e.offsetX, e.offsetY);
+        // console.log(cursor);
+        if (mouseDragged) {
+            mouseDragged(cursor);
+        }
         pmouse = cursor;
     }, false);
 
 
 
-    setInterval(draw, 1000);
+    setInterval(draw, 1);
 });
