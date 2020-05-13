@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #map-canvas {
+            height: 300px;
+            width: 600px;
+            background-color: #CCC;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+</head>
+<body>
+<h3>My Google Maps Demo</h3>
+<div id="map-canvas"></div>
+
+
+</body>
+
+<script>
+    function initialize() {
+
+        var myLatLng = new google.maps.LatLng(45.4375, 12.3358),
+            myOptions = {
+                zoom: 5,
+                center: myLatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            },
+            map = new google.maps.Map(document.getElementById('map-canvas'), myOptions),
+            marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map
+            });
+
+        marker.setMap(map);
+        moveMarker(map, marker);
+
+    }
+
+    function moveMarker(map, marker) {
+
+        //delayed so you can see it move
+        setTimeout(function () {
+
+            marker.setPosition(new google.maps.LatLng(45.4375, 12.3358));
+            map.panTo(new google.maps.LatLng(45.4375, 12.3358));
+
+        }, 1500);
+
+    };
+
+    initialize();
+
+
+</script>
+</html>
