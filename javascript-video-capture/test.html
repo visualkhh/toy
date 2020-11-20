@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <video id="video" src="https://media.prod.mdn.mozit.cloud/samples/video/chroma-key/video.ogv" controls="true" crossOrigin="anonymous"/>
+</div>
+<canvas id="canvas" width="100" height="80"></canvas>
+<img id="img"/>
+</body>
+<script>
+    //https://reustle.org/reading-html5-video-data
+    const video = document.getElementById("video");
+    // video.setAttribute('crossOrigin', '');
+    const img = document.getElementById("img");
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function timerCallback() {
+        console.log('----');
+        ctx.drawImage(video, 0, 0, 100, 80);
+        let imageData = ctx.getImageData(0,0,10,10);
+        console.log(imageData);
+
+        // const dataURL = canvas.toDataURL();
+        // img.src = dataURL;
+        // ctx.rect(0, 0, 100, 100);
+        // ctx.fill();
+        // let frame = ctx.getImageData(0, 0, 1, 2);
+        setTimeout(function () {
+            self.timerCallback();
+        }, 100);
+    }
+
+    video.addEventListener("play", function() {
+        timerCallback();
+    }, false);
+
+    // ctx.rect(10, 10, 100, 100);
+    // ctx.fill();
+    //
+    // let imageData = ctx.getImageData(60, 60, 200, 100);
+    // ctx.putImageData(imageData, 150, 10);
+</script>
+</html>
