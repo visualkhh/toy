@@ -1,3 +1,4 @@
+//https://developer.mozilla.org/ko/docs/Web/HTML/Canvas/Manipulating_video_using_canvas
 let processor = {
     timerCallback: function() {
         if (this.video.paused || this.video.ended) {
