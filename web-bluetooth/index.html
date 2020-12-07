@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form>
+    <button id="reqbtn"> request Device</button>
+</form>
+<script>
+    // https://caniuse.com/?search=Bluetooth%20API
+    function isWebBLEAvailable() {
+        if (!navigator.bluetooth) {
+            console.log("not available");
+            return false;
+        }
+        return true;
+    }
+
+    function getDeviceInfo() {
+        let options = {
+            acceptAllDevices: true,
+            filter: [
+
+            ]
+        }
+        console.log('request BLE Device infos..');
+        navigator.bluetooth.requestDevice(options).then(device => {
+            console.log(device);
+        }).catch(err => {
+            console.log('request BLE Device error', err);
+        });
+    }
+
+    document.querySelector('form').addEventListener('submit', (event) => {
+       event.stopPropagation();
+       event.preventDefault();
+       if(isWebBLEAvailable()) {
+           getDeviceInfo();
+       }
+    });
+</script>
+</body>
+</html>
