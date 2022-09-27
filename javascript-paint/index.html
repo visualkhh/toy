@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px #0d0f12 solid; border-radius: 3px; flex-grow: 1" width="515" height="150"></canvas>
+<script>
+
+  // draw
+  const canvas = document.querySelector('#canvas');
+  const ctx = canvas.getContext("2d");
+  //variables
+  let firstDraw = 0;
+  let painting = false;
+
+
+
+  //methods
+  function clear(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  function startPosition(e){
+    painting = true;
+    //console.log("in progress...");
+
+    //when click only
+    draw(e)
+  }
+
+  function finishedPosition(){
+    painting = false;
+    // console.log("end paint");
+
+    //after start from new position
+    ctx.beginPath();
+  }
+
+  function draw(e){
+    if(!painting) return;
+    firstDraw++;
+    //style
+    ctx.lineWidth = 10;
+    ctx.lineCap = "round";
+    const boundingClientRect = (e.target).getBoundingClientRect();
+    const x = e.clientX - boundingClientRect.left;
+    const y = e.clientY - boundingClientRect.top;
+    // console.log(firstDraw)
+    // console.log(e)
+    ctx.lineTo(x, y);
+    ctx.stroke();
+
+  }
+  canvas.addEventListener('touchstart', function(e) {
+    startPosition(e.touches[0])
+  })
+  canvas.addEventListener('touchend', function(e) {
+    finishedPosition(e.touches[0])
+  })
+  canvas.addEventListener('touchmove', function(e) {
+    draw(e.touches[0])
+  })
+  //listener
+  canvas.addEventListener('mousedown',startPosition);
+  canvas.addEventListener('mouseup',finishedPosition);
+  canvas.addEventListener('mousemove',draw);
+
+</script>
+</body>
+</html>
